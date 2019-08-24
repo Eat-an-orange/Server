@@ -6,6 +6,7 @@ import platform,os,datetime,sys
 from .login import cklogin
 import zipfile,time,os
 import random
+from config.config import projectPath
 url.append( {
         "title": "进程监控",
         "href": "/Process",
@@ -75,6 +76,8 @@ def GetNetWorkList():
             del(tmp)
         except :
             continue
+    tmp_dir = projectPath + 'tmp'
+    print(tmp_dir)
     for i in os.listdir('temp'):
         try:
             os.remove(os.path.join('temp',i))

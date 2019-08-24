@@ -5,6 +5,7 @@ import time
 from index import sql
 import os
 import json
+from config.config import projectPath
 class taskset():
     def __init__(self):
         self.taskList=[]
@@ -84,7 +85,7 @@ class taskset():
             self.taskList.append(data)
         else:
             self.DeleteTask(data['taskID'])
-        logname = 'lib/tasklog/'+data['creatTime'].replace(':','_')+'.log'
+        logname = projectPath + 'lib/tasklog/'+data['creatTime'].replace(':','_')+'.log'
         with open(logname,'a') as f:
             f.write('-'*20+'\n'+nowTime+':\n')
         subprocess.Popen(data['value'],shell=True,stdout = open(logname,'a'),stderr = subprocess.STDOUT)
@@ -102,7 +103,7 @@ class taskset():
         self.taskList.append(data)
         if writeToSql:
             sql.insertTask(data)
-        logname = 'lib/tasklog/'+data['creatTime'].replace(':','_')+'.log'
+        logname = projectPath+ '/lib/tasklog/'+data['creatTime'].replace(':','_')+'.log'
         if not os.path.isfile(logname):
             with open(logname,'w') as f:
                 if data['type'] == 'day':
